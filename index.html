@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Cinta Kedua belas Untuk Kamuuu 💌</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink-dark: #fb6f92;
+            --pink-medium: #ff8fab;
+            --pink-light: #ffb3c1;
+            --white: #ffffff;
+            --line-color: #e0e0e0;
+            --margin-line: #ffadad;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: #ffe5ec;
+        }
+
+        /* Background Hati Bergerak */
+        .bg-hearts { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+        .heart-float {
+            position: absolute;
+            color: rgba(251, 111, 146, 0.2);
+            font-size: 20px;
+            animation: floatUp 6s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            transition: 0.8s ease-in-out;
+        }
+        .welcome-screen.hide { opacity: 0; visibility: hidden; }
+        .welcome-screen h1 { color: white; font-family: 'Dancing Script', cursive; font-size: 2.5rem; margin-bottom: 30px; text-align: center; }
+        .btn-start { padding: 15px 40px; background: var(--pink-dark); color: white; border: none; border-radius: 50px; font-size: 1.2rem; cursor: pointer; box-shadow: 0 5px 20px rgba(251, 111, 146, 0.4); }
+
+        /* Envelope */
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background: var(--pink-medium);
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* Kertas Surat dengan Garis Buku */
+        .letter {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 90%;
+            background: var(--white);
+            z-index: 2;
+            padding: 40px 30px 30px 50px; /* Padding kiri lebih besar untuk garis margin */
+            border-radius: 5px;
+            transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            
+            /* Background Garis Buku */
+            background-image: 
+                linear-gradient(var(--margin-line) 0%, var(--margin-line) 100%), /* Garis margin merah */
+                linear-gradient(var(--line-color) 1px, transparent 1px); /* Garis biru/abu buku */
+            background-size: 2px 100%, 100% 28px; /* Ukuran garis: margin merah 2px, jarak baris 28px */
+            background-position: 40px 0, 0 35px; /* Posisi margin 40px dari kiri */
+            background-repeat: no-repeat, repeat;
+        }
+
+        .flap {
+            position: absolute;
+            top: 0; left: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 130px solid var(--pink-dark);
+            transform-origin: top;
+            transition: transform 0.6s ease, z-index 0.2s;
+            z-index: 5;
+        }
+
+        .pocket { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; z-index: 4; }
+        .pocket::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            border-left: 160px solid var(--pink-light);
+            border-right: 160px solid var(--pink-light);
+            border-top: 110px solid transparent;
+            border-bottom: 110px solid var(--pink-light);
+            border-radius: 0 0 10px 10px;
+        }
+
+        /* Open State */
+        .envelope-wrapper.open .flap { transform: rotateX(180deg); z-index: 1; }
+        .envelope-wrapper.open .letter {
+            width: 340px;
+            height: 500px;
+            bottom: 50%;
+            transform: translate(-50%, 50%);
+            z-index: 100;
+            overflow-y: auto;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .letter-content { 
+            color: #444; 
+            line-height: 28px; /* Harus sama dengan background-size garis (28px) */
+            font-size: 0.95rem;
+        }
+        .letter-content h2 { 
+            font-family: 'Dancing Script', cursive; 
+            color: var(--pink-dark); 
+            text-align: center;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+        .signature {
+            text-align: right;
+            margin-top: 28px;
+            font-family: 'Dancing Script', cursive;
+            color: var(--pink-dark);
+            font-size: 1.3rem;
+        }
+
+        #canvas { position: fixed; inset: 0; pointer-events: none; z-index: 200; }
+        .hint {
+            position: absolute; bottom: -50px; width: 100%; text-align: center;
+            color: var(--pink-dark); font-weight: bold; animation: bounce 2s infinite;
+        }
+        @keyframes bounce { 0%,100% {transform:translateY(0)} 50% {transform:translateY(-10px)} }
+    </style>
+</head>
+<body>
+
+    <div class="bg-hearts" id="heartContainer"></div>
+    <canvas id="canvas"></canvas>
+
+    <div class="welcome-screen" id="welcome">
+        <h1>Halo Cantik,<br>Ada surat cinta yang kedua belas untuk kamu sayangkuu❤️</h1>
+        <button class="btn-start" onclick="start()">Buka Sekarang yaaa✨</button>
+    </div>
+
+    <div class="envelope-wrapper" id="env" onclick="openSurat()">
+        <div class="flap"></div>
+        <div class="pocket"></div>
+        
+        <div class="letter" id="letter">
+            <div class="letter-content">
+                <h2>Untuk Sayang Aku Yang Paling Cantik Di Dunia❤️</h2>
+                <p>HHALOWWWW SAYANGKUHHHHHH, DUNIAKUUU, MALAIKATKUUUU, SELURUH HATIKUUUU, SELURUH NAFASKUUU, DUNIAKUUUU AVVVV, hari ini adalah hari selasa, 1 april 2026, yang seharusnya aku buat love letternya di hari senin, 
+                  tapi tak apa, asal ga ngeskip 1 minggu full hhehe, dan ini adalah week ke 12 WOWWWW, udah 3 bulan nonstop aku buatin love letter untuk kamuuu, akuuu kerenn bangett kannn, ini bisa dibilang kalo kita udah 3 
+                  bulan lalu mulai nonton the notebook hahaha, karena inspirasi awalnya gara-gara film the notebook hihihi😘.</p>
+                <p>💕</p>
+                <p>Sayangg, I just want to tell you how lucky and happy I am to have met you. Aku benar-benar  mencintai kamu sepenuh hatiku sayang, kamu adalah segalanya bagiku and I can’t even imagine what it would be like 
+                  if I hadn’t met you. Sayang, jika dunia ini hanyalah seperti gurun pasir yang gersang, yakinlah bagiku kamu seperti tanah hijau yang ditumbuhi oleh berbagai macam bunga yang indah di tengah gurun pasir. 
+                  Jika dunia ini seperti lautan sejauh mata memandang, maka kamu adalah sebuah daratan yang memiliki banyak hal indah dan menyenangkan ditengah lautan. Sayang, I love everything about you, I love your looks, 
+                  I love your attitude, I love you when you're sad, I love the look on your face when you're angry, I love your voice, I love your laughter, and I even love the sound of you snoring at night hahaha, 
+                  semua itu bagiku adalah kesatuan yang indah🥰. </p>
+                <p>💕</p>
+                <p>Sayangg, It breaks my heart when you say you think you're ugly, but you’re notttt. Kamu itu cantikkk bangettt bangett bangettt, kamu itu adalah wanita yang sangattt sangatt cantikk bukan hanya cantik di 
+                  wajah aja, But you’re also beautiful in your heart, beautiful in your character, beautiful in your intelligence, beautiful in your kindness, beautiful in your voice, everything about you is beautiful. 
+                  Dan kenapa aku sakitt, itu karenaa kamuu adalah tipe akuu bangett sayanggg, kamu adalah wanita yang selama ini aku cariii, jadi kamu gak usah kepikiran kalau aku bakal selingkuhin kamuu sayangg, karena akuu sudah menemukan 
+                  wanita yang tepat bagikuu sayangg hihihi i lovee youuu so muchhh❤️❤️❤️❤️😘😘😘💕💕.</p>
+                <p>💕</p>
+                <p>Sayangg, bahkan kata-kata pun gak cukup buat menggambarkan betapa cantik dan istimewanya kamu, karena There's something special about you, kamu itu seperti buku biasa di lemari yang biasa-biasa aja, tapi begitu 
+                  kita baca dan kita gali lebih dalam maka kita akan tau betapa istimewanyya buku itu, karena isi didalamnya, bukan hanya dari tampang luarnya saja, jadi kalo kamu bilang orang-orang membenci kamu, mereka itu hanya 
+                  belum membaca bukunya dan tidak tau lebih dalam mengenai isi dari bukunya sayang, mereka gak akan tau betapa istimewanya kamu jika mereka 
+                  belum mengenal kamu lebih dalam.</p>
+                <p>💕</p>
+                <p>Dan juga sayangggg, kamu itu adalah seseorang yang masuk list di dalam hidup aku sebagai orang yang gak bisa aku benci kapanpun, aku benar-benar mencintai kamu melebihi apapun sayanggg, jadinya I’m so scared of losing you, 
+                  I’m scared you’ll hate me, I’m scared you’ll get bored of me, I’m scared your attitude will change, I’m scared your feelings won’t be the same anymore, I’m scared you’ll meet someone who’s so much better than me. Tapi aku 
+                  udah berdamai dengan itu semua kok sayang, karena apa, karena perhatian kamu ke aku begitu besar sehingga semua rasa takut itu hilang, betapa baiknya hati kamu sayang, 
+                  gimana aku ga cinta mati sama kamu.</p>
+                <p>💕</p>
+                <p>Terakhir aku mau bilang, aku menerima semua tentang kamu sayang, aku disini gak cuma buat ambil senangnya kamu doang, but I’m also here for your sadness, your old scars, and all your good and bad traits serta semua yappingan 
+                  kamu yang kamu gakbisa keluarin ke orang orang, aku hadir untuk semua itu, jadi aku harap kamu untuk terus STAY, Stay happy, stay healthy, and stay with me😘, 
+                  i love you so much more than anything in this world sayangg❤️.</p>
+                <div class="signature">Aku Sayang Kamu Selamanya,<br>Sulthon 💖</div>
+            </div>
+        </div>
+        <div class="hint">Klik Amplopnya cayangkuuu👆</div>
+    </div>
+
+    <audio id="lagu" loop><source src="love.mp3" type="audio/mpeg"></audio>
+
+    <script>
+        function createHearts() {
+            const container = document.getElementById('heartContainer');
+            const heart = document.createElement('div');
+            heart.className = 'heart-float';
+            heart.innerHTML = ['❤️','💖','💕','💗'][Math.floor(Math.random()*4)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            container.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHearts, 500);
+
+        function start() {
+            document.getElementById('welcome').classList.add('hide');
+            document.getElementById('lagu').play().catch(() => {});
+        }
+
+        function openSurat() {
+            const env = document.getElementById('env');
+            if(!env.classList.contains('open')) {
+                env.classList.add('open');
+                setTimeout(confetti, 500);
+            }
+        }
+
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let pts = [];
+        function confetti() {
+            for(let i=0; i<50; i++) {
+                pts.push({
+                    x: window.innerWidth/2, y: window.innerHeight/2,
+                    vx: (Math.random()-0.5)*12, vy: (Math.random()-0.5)*12,
+                    size: Math.random()*5+2, life: 1
+                });
+            }
+        }
+        function draw() {
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            pts.forEach((p,i) => {
+                p.x+=p.vx; p.y+=p.vy; p.life-=0.02;
+                ctx.fillStyle = `rgba(251,111,146,${p.life})`;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
+                if(p.life<=0) pts.splice(i,1);
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
+</body>
+</html>
